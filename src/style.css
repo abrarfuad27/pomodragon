@@ -97,13 +97,17 @@ li {
   color: #b21919; /* Set the color on hover */
 }
 
-.timer-dropdown{
-    font-weight: 700;
-    margin-left: 15px;
-    font-size: large;
-    padding: 4px;
-    background-color: #fe6f6b;
-    color: white;
-    border: none;
-    border-radius: 4px;
+.timer-dropdown {
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 15px;
+  font-size: large;
+  padding: 8px;
+  background-color: #fe6f6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+.timer-dropdown:hover {
+  background-color: #b21919;
 }
