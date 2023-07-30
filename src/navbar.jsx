@@ -7,7 +7,10 @@ export default function NavBar() {
         <h4>Welcome to PomoDragon- a fast and simple Pomodoro tool</h4>
       </div>
       <nav className="nav-bar">
-        <img src="../logo.png" />
+        <div className="logo-name">
+          <img src="../logo.png" />
+          <h1>PomoDragon</h1>
+        </div>
         <ul className="nav-items">
           <li className="nav-item">
             <a
