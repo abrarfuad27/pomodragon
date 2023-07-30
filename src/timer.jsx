@@ -1,47 +1,118 @@
 import React, { useState, useEffect } from "react";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPause,
+  faPlay,
+  faRedo,
+  faCog,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Timer() {
-  const [seconds, setSeconds] = useState(1500); // 25 minutes in seconds
+  const [timerKey, setTimerKey] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(1500); // Default duration: 25 minutes in seconds
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    let interval = null;
-
-    if (isActive && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds((prevSeconds) => prevSeconds - 1);
-      }, 1000);
-    } else if (seconds === 0) {
-      // Timer completed, you can add any desired behavior here
-      // For example, you could play a sound or show a notification.
-      // For simplicity, we will just stop the timer for now.
+    if (isPaused) {
       setIsActive(false);
     }
-
-    return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [isPaused]);
 
   const handleStartPause = () => {
     setIsActive(!isActive);
+    setIsPaused(false);
+    setShowDropdown(false); // Close the dropdown when starting the timer
   };
 
   const handleReset = () => {
     setIsActive(false);
-    setSeconds(1500); // Reset to 25 minutes (1500 seconds)
+    setIsPaused(false);
+    setTimerKey((prevKey) => prevKey + 1);
   };
 
-  // Format the time to display minutes and seconds
-  const formatTime = (timeInSeconds) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  const handleTimerChange = (event) => {
+    const selectedDuration = parseInt(event.target.value, 10);
+    setTimerDuration(selectedDuration);
   };
+
+  const renderTime = ({ remainingTime }) => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const timerOptions = [
+    { label: "25 mins", value: 1500 }, // 25 minutes in seconds
+    { label: "40 mins", value: 2400 }, // 40 minutes in seconds
+    { label: "50 mins", value: 3000 }, // 50 minutes in seconds
+  ];
 
   return (
     <div className="main-timer">
-      <div className="timer-display">{formatTime(seconds)}</div>
-      <button onClick={handleStartPause}>{isActive ? "Pause" : "Start"}</button>
-      <button onClick={handleReset}>Reset</button>
+      <CountdownCircleTimer
+        key={timerKey}
+        isPlaying={isActive}
+        duration={timerDuration}
+        colors={[["#FE6F6B"]]}
+        onComplete={() => {
+          setIsActive(false);
+          setIsPaused(false);
+        }}
+        size={400}
+      >
+        {({ remainingTime }) => renderTime({ remainingTime })}
+      </CountdownCircleTimer>
+
+      <div className="timer-buttons">
+        {isActive && !isPaused ? (
+          <FontAwesomeIcon
+            icon={faPause}
+            onClick={() => setIsPaused(true)}
+            className="timer-icon"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faPlay}
+            onClick={handleStartPause}
+            className="timer-icon"
+          />
+        )}
+
+        {(isActive || isPaused) && (
+          <FontAwesomeIcon
+            icon={faRedo}
+            onClick={handleReset}
+            className="timer-icon"
+          />
+        )}
+        {!isActive && !isPaused && (
+          <div className="timer-settings">
+            <FontAwesomeIcon
+              icon={faCog}
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="timer-icon"
+            />
+            {showDropdown && (
+              <select
+                className="timer-dropdown"
+                onChange={handleTimerChange}
+                value={timerDuration}
+              >
+                {timerOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
