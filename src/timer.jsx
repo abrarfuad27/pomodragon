@@ -51,6 +51,25 @@ export default function Timer() {
     { label: "40 mins", value: 2400 }, // 40 minutes in seconds
     { label: "50 mins", value: 3000 }, // 50 minutes in seconds
   ];
+  // Function to get the current window size and set the timer size accordingly
+  const getTimerSize = () => {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const timerSize = Math.min(windowWidth * 0.5, windowHeight * 0.5); // Adjust the scaling factor as needed
+    return timerSize;
+  };
+
+  // State to store the dynamic timer size
+  const [timerSize, setTimerSize] = useState(getTimerSize());
+
+  // Update the timer size when the window is resized
+  useEffect(() => {
+    const handleResize = () => {
+      setTimerSize(getTimerSize());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="main-timer">
@@ -63,7 +82,7 @@ export default function Timer() {
           setIsActive(false);
           setIsPaused(false);
         }}
-        size={400}
+        size={timerSize}
       >
         {({ remainingTime }) => renderTime({ remainingTime })}
       </CountdownCircleTimer>
