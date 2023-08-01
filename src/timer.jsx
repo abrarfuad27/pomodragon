@@ -7,6 +7,7 @@ import {
   faRedo,
   faCog,
 } from "@fortawesome/free-solid-svg-icons";
+import beepSound from "./sounds/beep.mp3";
 
 export default function Timer() {
   const [timerKey, setTimerKey] = useState(0);
@@ -21,10 +22,22 @@ export default function Timer() {
     }
   }, [isPaused]);
 
+  const playBeepSound = () => {
+    const audio = new Audio(beepSound);
+    audio.play();
+  };
+
   const handleStartPause = () => {
     setIsActive(!isActive);
     setIsPaused(false);
     setShowDropdown(false); // Close the dropdown when starting the timer
+  };
+
+  const resetTimer = () => {
+    setIsActive(false);
+    setIsPaused(false);
+    setTimerDuration(1500);
+    setTimerKey((prevKey) => prevKey + 1);
   };
 
   const handleReset = () => {
@@ -49,7 +62,7 @@ export default function Timer() {
   const timerOptions = [
     { label: "25 mins", value: 1500 }, // 25 minutes in seconds
     { label: "40 mins", value: 2400 }, // 40 minutes in seconds
-    { label: "50 mins", value: 3000 }, // 50 minutes in seconds
+    { label: "3 secs", value: 3 }, // 50 minutes in seconds
   ];
   // Function to get the current window size and set the timer size accordingly
   const getTimerSize = () => {
@@ -79,8 +92,8 @@ export default function Timer() {
         duration={timerDuration}
         colors={[["#FE6F6B"]]}
         onComplete={() => {
-          setIsActive(false);
-          setIsPaused(false);
+          playBeepSound();
+          resetTimer();
         }}
         size={timerSize}
       >

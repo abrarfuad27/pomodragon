@@ -1,15 +1,16 @@
-import NavBar from "./navbar";
-import MotivationalQuote from "./quotes";
-import Timer from "./timer";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import IndexPage from "./IndexPage";
+import LoginPage from "./LoginPage";
 
 function App() {
   return (
-    <div className="main-container">
-      <NavBar />
-      <Timer />
-      <MotivationalQuote />
-      <footer className="footer">© 2023 Pomodragon. All rights reserved</footer>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+        <Route path="/login" element={<LoginPage/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

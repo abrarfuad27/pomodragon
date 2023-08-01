@@ -12,7 +12,6 @@ export const quotes = [
   "Random quote generator go brr.",
   "Don't look back. March forward",
   "Being a functional adult everyday seems a bit -excessive-.",
-  "If you think you are too small to make a difference, try sleeping with a mosquito.",
   "Go easy on yourself. Whatever you do today, let it be enough",
   "Listen to your gut feelings.",
   "You can",

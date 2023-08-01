@@ -40,10 +40,7 @@ html {
   height: 6rem;
   padding: 1rem;
 }
-.nav-items {
-  display: flex;
-  gap: 5rem;
-}
+
 .nav-item a {
   text-decoration: none;
   color: rgb(81, 58, 58);
@@ -135,4 +132,58 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: whitesmoke; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding: 4rem; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sidenav-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.sidenav-item a {
+  text-decoration: none;
+  color: rgb(81, 58, 58);
+  transition: all 0.1s;
+}
+
+.sidenav-item a:hover {
+  color: #b21919;
+  border-bottom: 4px solid #b21919;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+.menu-icon:hover {
+  background-color: whitesmoke;
+}
+@media (max-width: 767px) {
+  .menu-container {
+    display: block; /* Show the menu container on mobile screens */
+  }
+  .nav-items {
+    display: none;
+  }
+}
+
+/* Styles for the menu container, applied only on screens with min-width 768px (non-mobile screens) */
+@media (min-width: 768px) {
+  .menu-container {
+    display: none; /* Hide the menu container on non-mobile screens */
+  }
+  .nav-items {
+    display: flex;
+    gap: 5rem;
+  }
 }
