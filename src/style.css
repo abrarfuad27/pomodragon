@@ -168,6 +168,88 @@ li {
 .menu-icon:hover {
   background-color: whitesmoke;
 }
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 105vh;
+}
+.login-form {
+  height: 32rem;
+  width: 30rem;
+  color: white;
+  padding: 2rem;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fe6f6b;
+  border-radius: 10%;
+  font-size: 1.3rem;
+}
+
+.login-form h1 {
+  text-align: center;
+}
+
+form {
+  border: 0.3rem solid #f1f1f1;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 1rem;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #085c3d;
+  color: white;
+  padding: 1rem;
+  margin-top: 0.7rem;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 105vh;
+}
+.register-form {
+  height: 45rem;
+  width: 30rem;
+  color: white;
+  padding: 2rem;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fe6f6b;
+  border-radius: 10%;
+  font-size: 1.3rem;
+}
+
+.regisster-form h1 {
+  text-align: center;
+}
+
 @media (max-width: 767px) {
   .menu-container {
     display: block; /* Show the menu container on mobile screens */
