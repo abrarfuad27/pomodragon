@@ -2,10 +2,11 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { userContext } from "./UserContext";
 
 export default function NavBar() {
   const [dropdown, setDropdown] = React.useState(false);
-
+  const { userInfo } = React.useContext(userContext);
   return (
     <>
       <div className="intro">
@@ -32,9 +33,16 @@ export default function NavBar() {
               About
             </a>
           </li>
-          <li className="nav-item">
-            <Link to="/login">Login</Link>
-          </li>
+          {!userInfo && (
+            <li className="nav-item">
+              <Link to="/login">Login</Link>
+            </li>
+          )}
+          {userInfo && (
+            <li className="nav-item">
+              <Link to="/records">{`Hi,${userInfo.username}`}</Link>
+            </li>
+          )}
         </ul>
         <div className="menu-container">
           <FontAwesomeIcon

@@ -4,11 +4,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { userContext } from "./UserContext";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState();
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = React.useContext(userContext);
 
   async function login(ev) {
     ev.preventDefault();
@@ -21,6 +23,7 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         alert("Login successful");
+        setUserInfo(response.data.user);
         setRedirect(true);
       }
     } catch (error) {
