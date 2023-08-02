@@ -2,15 +2,37 @@ import React from "react";
 import NavBar from "./navbar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState();
 
-  function login(ev) {
+  async function login(ev) {
     ev.preventDefault();
-    console.log({ username, password });
+    const userData = { username, password };
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/login",
+        userData
+      );
+
+      if (response.status === 200) {
+        alert("Login successful");
+        setRedirect(true);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred during login.");
+    }
   }
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div className="login-container">
       <NavBar />

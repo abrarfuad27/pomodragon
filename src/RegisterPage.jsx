@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "./navbar";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,9 +26,24 @@ export default function RegisterPage() {
         "http://localhost:4000/register",
         userData
       );
+      alert(response.data.message);
+      setRedirect(true);
     } catch (err) {
-      console.log(`Error->${err}`);
+      console.log(err);
+      if (err.response) {
+        // The request was made and the server responded with a status code that falls out of the range of 2xx
+        alert(`Registration failed: ${err.response.data.message}`);
+      } else if (err.request) {
+        // The request was made but no response was received, `err.request` is an instance of XMLHttpRequest in the browser
+        alert("Registration request sent, but no response received.");
+      } else {
+        // Something happened in setting up the request, triggering an Error
+        alert("Error occurred during registration.");
+      }
     }
+  }
+  if (redirect) {
+    return <Navigate to={"/login"} />;
   }
 
   return (

@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const User = require('./models/User');
-const jwt = require('jsonwebtoken');
-const cors = require('cors');
+const User = require("./models/User");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const jwtSecret = "13adahf2832igfjka1h2iqivvbak";
 
 app.use(cors()); //allowing cross-origin
-app.use(express.json())
+app.use(express.json());
 
 const URI =
   "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
@@ -22,7 +23,7 @@ async function connect() {
 }
 connect();
 
-app.post('/register',async (req,res)=>{
+app.post("/register", async (req, res) => {
   // Extract user data from the request body
   const { username, email, password } = req.body;
 
@@ -51,7 +52,36 @@ app.post('/register',async (req,res)=>{
   } catch (error) {
     // Handle errors if any
     console.error("Error registering user:", error);
-    res.status(500).json({ message: "An error occurred while registering user." });
+    res
+      .status(500)
+      .json({ message: "An error occurred while registering user." });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: "User not found!" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials!" });
+    }
+    const token = jwt.sign({ userId: user._id }, jwtSecret, {
+      expiresIn: "3h",
+    });
+    res.cookie("token", token, { httpOnly: true, maxAge: 10800000 });
+    res
+      .status(200)
+      .json({
+        message: "Login successful!",
+        user: { username: user.username, email: user.email },
+      });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "An error occurred during login." });
   }
 });
 
