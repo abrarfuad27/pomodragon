@@ -66,9 +66,16 @@ export default function NavBar() {
                     About
                   </a>
                 </li>
-                <li className="sidenav-item">
-                  <Link to="/login">Login</Link>
-                </li>
+                {!userInfo && (
+                  <li className="sidenav-item">
+                    <Link to="/login">Login</Link>
+                  </li>
+                )}
+                {userInfo && (
+                  <li className="sidenav-item">
+                    <Link to="/records">{`Hi,${userInfo.username}`}</Link>
+                  </li>
+                )}
               </ul>
             </div>
           )}
