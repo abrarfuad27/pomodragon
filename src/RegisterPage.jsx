@@ -1,15 +1,32 @@
 import React, { useState } from "react";
 import NavBar from "./navbar";
+import axios from "axios";
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  function register(ev) {
+  async function register(ev) {
     ev.preventDefault();
-    if(password !== confirmPassword){
-        alert('Passwords did not match.Try again.');
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Passwords did not match.Try again.");
+      return;
+    }
+    const userData = { username, email, password };
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/register",
+        userData
+      );
+    } catch (err) {
+      console.log(`Error->${err}`);
     }
   }
 
