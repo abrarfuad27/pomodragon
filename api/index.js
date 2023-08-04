@@ -89,9 +89,24 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/record", async (req, res) => {
-  const { username } = req.body;
-  res.json({ username });
+app.get("/records/:username", async (req, res) => {
+  const { username} = req.params;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: "User not found!" });
+    }
+    res.status(200).json({
+      user: {
+        username: user.username,
+        cycle: user.cycle,
+        duration: user.duration,
+      },
+    });
+  } catch (err) {
+    console.error("Error while finding user:", err);
+    res.status(500).json({ message: "Error while finding user." });
+  }
 });
 
 app.listen(4000, () => {
