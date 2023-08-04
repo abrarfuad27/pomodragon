@@ -17,6 +17,16 @@ const UserSchema = new mongoose.Schema({
     required: true,
     min: 6,
   },
+  duration: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  cycle: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 const UserModel = mongoose.model("User", UserSchema);
 

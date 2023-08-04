@@ -8,6 +8,8 @@ const cors = require("cors");
 const jwtSecret = "13adahf2832igfjka1h2iqivvbak";
 const cookieParser = require("cookie-parser");
 
+// Define the update operation with $set to add the new fields with default values
+
 app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowing cross-origin
 app.use(express.json());
 app.use(cookieParser());
@@ -85,6 +87,11 @@ app.post("/login", async (req, res) => {
     console.error("Error during login:", error);
     res.status(500).json({ message: "An error occurred during login." });
   }
+});
+
+app.get("/record", async (req, res) => {
+  const { username } = req.body;
+  res.json({ username });
 });
 
 app.listen(4000, () => {

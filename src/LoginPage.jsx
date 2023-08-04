@@ -23,7 +23,6 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         alert("Login successful");
-        console.log(response.data.user);
         sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setUserInfo(response.data.user);
         setRedirect(true);
