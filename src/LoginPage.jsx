@@ -23,12 +23,14 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         alert("Login successful");
+        console.log(response.data.user);
+        sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setUserInfo(response.data.user);
         setRedirect(true);
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred during login.");
+      alert("Username and Password combination is invalid.");
     }
   }
 
@@ -41,7 +43,7 @@ export default function LoginPage() {
       <NavBar />
       <form className="login-form" onSubmit={login}>
         <h1 className="login-header">Sign In</h1>
-        <label for="uname">
+        <label htmlFor="uname">
           <b>Username</b>
         </label>
         <input
@@ -51,7 +53,7 @@ export default function LoginPage() {
           onChange={(ev) => setUsername(ev.target.value)}
           required
         />
-        <label for="psw">
+        <label htmlFor="psw">
           <b>Password</b>
         </label>
         <input

@@ -51,7 +51,7 @@ export default function RegisterPage() {
       <NavBar />
       <form className="register-form" onSubmit={register}>
         <h1 className="register-header">Create Account</h1>
-        <label for="uname">
+        <label htmlFor="uname">
           <b>Username</b>
         </label>
         <input
@@ -61,7 +61,7 @@ export default function RegisterPage() {
           onChange={(ev) => setUsername(ev.target.value)}
           required
         />
-        <label for="email">
+        <label htmlFor="email">
           <b>Email</b>
         </label>
         <input
@@ -71,7 +71,7 @@ export default function RegisterPage() {
           onChange={(ev) => setEmail(ev.target.value)}
           required
         ></input>
-        <label for="psw">
+        <label htmlFor="psw">
           <b>Password</b>
         </label>
         <input
@@ -81,7 +81,7 @@ export default function RegisterPage() {
           required
           onChange={(ev) => setPassword(ev.target.value)}
         ></input>
-        <label for="confirm-psw">
+        <label htmlFor="confirm-psw">
           <b>Confirm Password</b>
         </label>
         <input

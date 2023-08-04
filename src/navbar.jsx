@@ -3,10 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { userContext } from "./UserContext";
+import axios from "axios";
 
 export default function NavBar() {
   const [dropdown, setDropdown] = React.useState(false);
-  const { userInfo } = React.useContext(userContext);
+  const { userInfo, setUserInfo } = React.useContext(userContext);
+
+  React.useEffect(()=>{
+    const user = sessionStorage.getItem("user");
+    if(user){
+      setUserInfo(JSON.parse(user));
+    }
+  },[])
+
   return (
     <>
       <div className="intro">

@@ -6,9 +6,11 @@ const User = require("./models/User");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const jwtSecret = "13adahf2832igfjka1h2iqivvbak";
+const cookieParser = require("cookie-parser");
 
-app.use(cors()); //allowing cross-origin
+app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowing cross-origin
 app.use(express.json());
+app.use(cookieParser());
 
 const URI =
   "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
@@ -72,12 +74,12 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, jwtSecret, {
       expiresIn: "3h",
     });
-    res.cookie("token", token, { httpOnly: true, maxAge: 10800000 });
     res
+      .cookie("token", token, { httpOnly: true, maxAge: 10800000 })
       .status(200)
       .json({
         message: "Login successful!",
-        user: { username: user.username, email: user.email },
+        user: { username: user.username, email: user.email, token: token },
       });
   } catch (error) {
     console.error("Error during login:", error);
