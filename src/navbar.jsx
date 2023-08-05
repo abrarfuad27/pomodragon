@@ -14,7 +14,7 @@ export default function NavBar() {
     if (user) {
       setUserInfo(JSON.parse(user));
     }
-  }, [userInfo]);
+  }, []);
 
   return (
     <>

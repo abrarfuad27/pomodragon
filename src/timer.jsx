@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { userContext } from "./UserContext";
 import {
   faPause,
   faPlay,
@@ -15,6 +17,7 @@ export default function Timer() {
   const [isPaused, setIsPaused] = useState(false);
   const [timerDuration, setTimerDuration] = useState(1500); // Default duration: 25 minutes in seconds
   const [showDropdown, setShowDropdown] = useState(false);
+  const { userInfo, setUserInfo } = React.useContext(userContext);
 
   useEffect(() => {
     if (isPaused) {
@@ -40,10 +43,29 @@ export default function Timer() {
     setTimerKey((prevKey) => prevKey + 1);
   };
 
+  const handleTimerComplete = () => {
+    updateDB(); // Move the database update logic here
+    playBeepSound();
+    resetTimer();
+  };
+
   const handleReset = () => {
     setIsActive(false);
     setIsPaused(false);
     setTimerKey((prevKey) => prevKey + 1);
+  };
+
+  const updateDB = async () => {
+    if (userInfo && userInfo.username) {
+      const name = userInfo.username;
+      const response = await axios.post("http://localhost:4000/update", {
+        name,
+        timerDuration,
+      });
+      if (response.status === 200) {
+        console.log(response.data.user);
+      }
+    }
   };
 
   const handleTimerChange = (event) => {
@@ -92,8 +114,7 @@ export default function Timer() {
         duration={timerDuration}
         colors={[["#FE6F6B"]]}
         onComplete={() => {
-          playBeepSound();
-          resetTimer();
+          handleTimerComplete();
         }}
         size={timerSize}
       >

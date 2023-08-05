@@ -113,6 +113,28 @@ app.get("/records/:username", async (req, res) => {
   }
 });
 
+app.post("/update", async (req, res) => {
+  const { name, timerDuration } = req.body;
+  try {
+    const user = await User.findOne({ username: name });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Could not find user to update database." });
+    }
+
+    // Update the duration for the user
+    user.duration += timerDuration;
+    await user.save();
+    res
+      .status(200)
+      .json({ user, message: "Duration & cycle updated successfully." });
+  } catch (err) {
+    console.error("Error while finding/updating user:", err);
+    res.status(500).json({ message: "Error while finding/updating user." });
+  }
+});
+
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
 });
