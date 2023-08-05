@@ -9,12 +9,12 @@ export default function NavBar() {
   const [dropdown, setDropdown] = React.useState(false);
   const { userInfo, setUserInfo } = React.useContext(userContext);
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const user = sessionStorage.getItem("user");
-    if(user){
+    if (user) {
       setUserInfo(JSON.parse(user));
     }
-  },[])
+  }, [userInfo]);
 
   return (
     <>
@@ -42,12 +42,12 @@ export default function NavBar() {
               About
             </a>
           </li>
-          {!userInfo && (
+          {(!userInfo || userInfo && !userInfo.username) && (
             <li className="nav-item">
               <Link to="/login">Login</Link>
             </li>
           )}
-          {userInfo && (
+          {userInfo && userInfo.username && (
             <li className="nav-item">
               <Link to="/records">{`Hi,${userInfo.username}`}</Link>
             </li>
@@ -75,12 +75,12 @@ export default function NavBar() {
                     About
                   </a>
                 </li>
-                {!userInfo && (
+                {(!userInfo || userInfo && !userInfo.username) && (
                   <li className="sidenav-item">
                     <Link to="/login">Login</Link>
                   </li>
                 )}
-                {userInfo && (
+                {userInfo && userInfo.username && (
                   <li className="sidenav-item">
                     <Link to="/records">{`Hi,${userInfo.username}`}</Link>
                   </li>

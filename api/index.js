@@ -89,8 +89,12 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/signout", (req, res) => {
+  res.clearCookie("token").status(200).json({ message: "Signout successful!" });
+});
+
 app.get("/records/:username", async (req, res) => {
-  const { username} = req.params;
+  const { username } = req.params;
   try {
     const user = await User.findOne({ username });
     if (!user) {
