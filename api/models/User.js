@@ -27,6 +27,19 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
+  activityData: [
+    {
+      Date: {
+        type: Date,
+        required: true,
+      },
+      count: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+    },
+  ],
 });
 const UserModel = mongoose.model("User", UserSchema);
 

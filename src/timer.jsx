@@ -84,7 +84,7 @@ export default function Timer() {
   const timerOptions = [
     { label: "25 mins", value: 1500 }, // 25 minutes in seconds
     { label: "40 mins", value: 2400 }, // 40 minutes in seconds
-    { label: "3 secs", value: 3 }, // 50 minutes in seconds
+    { label: "60 mins", value: 3600 }, // 50 minutes in seconds
   ];
   // Function to get the current window size and set the timer size accordingly
   const getTimerSize = () => {

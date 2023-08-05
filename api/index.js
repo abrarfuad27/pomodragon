@@ -22,7 +22,7 @@ async function connect() {
     await mongoose.connect(URI);
     console.log("Connected to MongoDB");
   } catch (err) {
-    console.log(`Error -> ${err}`);
+    console.log(`Error : ${err}`);
   }
 }
 connect();
@@ -105,6 +105,7 @@ app.get("/records/:username", async (req, res) => {
         username: user.username,
         cycle: user.cycle,
         duration: user.duration,
+        activityData: user.activityData,
       },
     });
   } catch (err) {
@@ -125,6 +126,27 @@ app.post("/update", async (req, res) => {
 
     // Update the duration for the user
     user.duration += timerDuration;
+    user.cycle += 1;
+    const currentDate = new Date();
+    const formattedDate = new Date(currentDate.toDateString()); // Remove time from the date
+
+    // Check if the current date already exists in the activityData array
+    const existingActivity = user.activityData.find(
+      (activity) =>
+        new Date(activity.Date.toDateString()).getTime() ===
+        formattedDate.getTime()
+    );
+
+    if (existingActivity) {
+      // If the date exists, increment the count by 1
+      existingActivity.count += 1;
+    } else {
+      // If the date does not exist, add a new entry with count as 1
+      user.activityData.push({
+        Date: formattedDate,
+        count: 1,
+      });
+    }
     await user.save();
     res
       .status(200)

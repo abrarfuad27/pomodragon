@@ -271,6 +271,16 @@ button:hover {
   flex-basis: 25%;
 }
 
+.chart-container{
+  margin-top: 4rem;
+  /* height:40rem;
+  width:40rem; */
+  height: 25vh;
+  width: 25vw;
+  
+}
+
+
 .stats {
   box-shadow: 1px 1px 12px 4px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 1px 1px 12px 4px rgba(0, 0, 0, 0.2);
