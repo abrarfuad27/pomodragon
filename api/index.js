@@ -14,8 +14,8 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowin
 app.use(express.json());
 app.use(cookieParser());
 
-const URI =
-  "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
+const URI = process.env.MONGODB_URI;
+  // "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
 
 async function connect() {
   try {
