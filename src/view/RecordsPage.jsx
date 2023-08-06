@@ -20,7 +20,7 @@ export default function RecordsPage() {
       const fetchUserRecords = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:4000/records/" + userInfo.username
+            `${process.env.REACT_APP_API_URL}/records/` + userInfo.username
           );
 
           if (response.status === 200) {
@@ -39,7 +39,7 @@ export default function RecordsPage() {
   async function signOut() {
     try {
       const response = await axios.post(
-        "http://localhost:4000/signout",
+        `${process.env.REACT_APP_API_URL}/signout`,
         userInfo
       );
       if (response.status === 200) {

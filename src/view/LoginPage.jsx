@@ -17,7 +17,7 @@ export default function LoginPage() {
     const userData = { username, password };
     try {
       const response = await axios.post(
-        "http://localhost:4000/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         userData
       );
 

@@ -58,10 +58,13 @@ export default function Timer() {
   const updateDB = async () => {
     if (userInfo && userInfo.username) {
       const name = userInfo.username;
-      const response = await axios.post("http://localhost:4000/update", {
-        name,
-        timerDuration,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/update`,
+        {
+          name,
+          timerDuration,
+        }
+      );
       if (response.status === 200) {
         console.log(response.data.user);
       }

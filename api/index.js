@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const jwtSecret = "13adahf2832igfjka1h2iqivvbak";
 const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+dotenv.config();
 
 // Define the update operation with $set to add the new fields with default values
 
@@ -14,8 +16,8 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowin
 app.use(express.json());
 app.use(cookieParser());
 
-const URI = process.env.MONGODB_URI;
-  // "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
+const URI =
+  "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
 
 async function connect() {
   try {
@@ -157,6 +159,10 @@ app.post("/update", async (req, res) => {
   }
 });
 
-app.listen(4000, () => {
-  console.log("Server is running on port 4000");
-});
+if (process.env.API_PORT) {
+  app.listen(process.env.API_PORT, () => {
+    console.log("Server is running on port 4000");
+  });
+}
+
+module.exports = app;
