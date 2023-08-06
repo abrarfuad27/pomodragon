@@ -63,7 +63,6 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-  return res.json({ message: "request was made" });
   try {
     const user = await User.findOne({ username });
     if (!user) {
