@@ -29,7 +29,7 @@ connect();
 app.post("/api/register", async (req, res) => {
   // Extract user data from the request body
   const { username, email, password } = req.body;
-  console.log('Request was made.');
+
   try {
     // Check if the email already exists in the database
     const existingUser = await User.findOne({ email });
@@ -63,6 +63,7 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
+  return res.json({ message: "request was made" });
   try {
     const user = await User.findOne({ username });
     if (!user) {
