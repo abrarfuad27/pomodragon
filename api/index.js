@@ -11,11 +11,22 @@ dotenv.config();
 
 // Define the update operation with $set to add the new fields with default values
 const allowedOrigins = [
-  "https://pomodragon.vercel.app",
   "http://localhost:3000",
+  "https://pomodragon.vercel.app",
 ];
 
-app.use(cors({ credentials: true, origin: allowedOrigins })); //allowing cross-origin
+app.use(
+  cors({
+    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
