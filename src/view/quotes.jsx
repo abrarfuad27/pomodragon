@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { quotes } from "./data";
+import { quotes } from "../data";
 
 const MotivationalQuote = () => {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(
@@ -18,7 +18,7 @@ const MotivationalQuote = () => {
     };
 
     // Change the quote every 10 seconds
-    const quoteInterval = setInterval(changeQuote, 2000);
+    const quoteInterval = setInterval(changeQuote, 3000);
 
     // Clear the interval when the component unmounts
     return () => clearInterval(quoteInterval);

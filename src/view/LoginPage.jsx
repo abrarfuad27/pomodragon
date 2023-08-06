@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { userContext } from "./UserContext";
+import { userContext } from "../UserContext";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");

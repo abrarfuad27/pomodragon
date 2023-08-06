@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import NavBar from "./navbar";
 import MotivationalQuote from "./quotes";
 import Timer from "./timer";
-import { userContext } from "./UserContext";
+import { userContext } from "../UserContext";
 
 export default function IndexPage() {
   return (

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { userContext } from "./UserContext";
+import { userContext } from "../UserContext";
 import {
   faPause,
   faPlay,
   faRedo,
   faCog,
 } from "@fortawesome/free-solid-svg-icons";
-import beepSound from "./sounds/beep.mp3";
+import beepSound from "../sounds/beep.mp3";
 
 export default function Timer() {
   const [timerKey, setTimerKey] = useState(0);

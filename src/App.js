@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import IndexPage from "./IndexPage";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
+import IndexPage from "./view/IndexPage";
+import LoginPage from "./view/LoginPage";
+import RegisterPage from "./view/RegisterPage";
 import { UserContextProvider } from "./UserContext";
-import RecordsPage from "./RecordsPage";
+import RecordsPage from "./view/RecordsPage";
 import { Helmet } from "react-helmet";
 
 function App() {
