@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const jwtSecret = process.env.jwtSecret;
-const URI = process.env.MONGO_URI;
+const URI = process.env.MONGODB_URI;
 
 async function connect() {
   try {
