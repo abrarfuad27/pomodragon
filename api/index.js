@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const jwtSecret = "13adahf2832igfjka1h2iqivvbak";
+const jwtSecret = process.env.jwtSecret;
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -16,8 +16,7 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowin
 app.use(express.json());
 app.use(cookieParser());
 
-const URI =
-  "mongodb+srv://abrarfuad51:aelapin@cluster0.logpdqz.mongodb.net/?retryWrites=true&w=majority";
+const URI = process.env.MONGO_URI;
 
 async function connect() {
   try {
