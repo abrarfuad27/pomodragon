@@ -26,7 +26,7 @@ async function connect() {
 }
 connect();
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   // Extract user data from the request body
   const { username, email, password } = req.body;
 
@@ -61,7 +61,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
@@ -88,11 +88,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/signout", (req, res) => {
+app.post("/api/signout", (req, res) => {
   res.clearCookie("token").status(200).json({ message: "Signout successful!" });
 });
 
-app.get("/records/:username", async (req, res) => {
+app.get("/api/records/:username", async (req, res) => {
   const { username } = req.params;
   try {
     const user = await User.findOne({ username });
@@ -113,7 +113,7 @@ app.get("/records/:username", async (req, res) => {
   }
 });
 
-app.post("/update", async (req, res) => {
+app.post("/api/update", async (req, res) => {
   const { name, timerDuration } = req.body;
   try {
     const user = await User.findOne({ username: name });
