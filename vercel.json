@@ -4,11 +4,15 @@
     {
       "src": "./api/index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "./build",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/(.*)",
       "dest": "./api/index.js",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
@@ -16,12 +20,8 @@
       }
     },
     {
-      "src": "/_next/(.*)",
-      "dest": "/_next/$1"
-    },
-    {
-      "src": "/",
-      "dest": "./api/index.js"
+      "src": "/(.*)",
+      "dest": "./client/build/$1"
     }
   ]
 }
