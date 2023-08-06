@@ -1,8 +1,18 @@
 {
-  "rewrites":[
+  "rewrites": [
     {
-      "source":"/(.*)",
-      "destination":"/"
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
+    {
+      "source": "/pomodragon.vercel.app/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ]
 }
