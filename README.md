@@ -1,7 +1,8 @@
  Pomodragon
 
 🕒 Fast and Responsive Pomodoro Timer - Boost Your Productivity! 🚀
-![image](https://github.com/abrarfuad27/pomodragon/assets/116526066/57851d15-c193-4448-b3ab-f863225f4171)
+![image](https://github.com/abrarfuad27/pomodragon/assets/116526066/4a182692-d6c3-424b-81c1-37f69aef1bdd)
+
 
 
 Sign in or create an account to access personalized content.
