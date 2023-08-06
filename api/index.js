@@ -5,17 +5,21 @@ const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const jwtSecret = process.env.jwtSecret;
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
 // Define the update operation with $set to add the new fields with default values
+const allowedOrigins = [
+  "https://pomodragon.vercel.app",
+  "http://localhost:3000",
+];
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //allowing cross-origin
+app.use(cors({ credentials: true, origin: allowedOrigins })); //allowing cross-origin
 app.use(express.json());
 app.use(cookieParser());
 
+const jwtSecret = process.env.jwtSecret;
 const URI = process.env.MONGO_URI;
 
 async function connect() {
